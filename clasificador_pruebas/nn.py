@@ -56,7 +56,7 @@ inputLayerSize, hiddenLayerSize, outputLayerSize = 7, 14, 10
 # Modelo
 modelo = nn.Sequential(
     nn.Linear(inputLayerSize, hiddenLayerSize),
-    nn.ReLU(),
+    nn.Tanh(),
     nn.Linear(hiddenLayerSize, outputLayerSize),
     nn.Softmax(1))
 
