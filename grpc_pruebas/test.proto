@@ -1,0 +1,53 @@
+// Prueba para definir un servicio para consultar el modelo.
+// No contiene maneje de errores.
+
+syntax = "proto3";
+
+service ModelService {
+
+	// Request to create of a new model.
+	rpc CreateModel(CreateModelRequest) returns (ModelRepresentation) {}
+
+	// Consult a model for the class of a leds sequence.
+	rpc ConsultModel(ConsultModelRequest) returns (ConsultModelResponse) {}
+
+}
+
+// A request to create a new model.
+message CreateModelRequest {
+	// Required. The resource name of the model.
+	string name = 1;
+
+	// Required. A valuew between 0 and 1.
+	// Indicates the proportion of the dataset to be used in the training.
+	float proportion = 2;
+
+	// Required. A valid URL path string 
+	// The direction of the dataset to train the model.
+	string url = 3;
+}
+
+// A basic representation for a created model.
+message ModelRepresentation {
+	// Output only. Assigned by the server.
+	// a detail for a created model.
+	string detail = 1;
+}
+
+// A request to consult an existing model.
+message ConsultModelRequest {
+	// Required. The resource name of the model.
+	string name = 1;
+
+	// Required. Just 7 values, one for each led.
+	repeated bool = 2;	
+}
+
+// A ConsultModelResponse is received in response to ConsultModel rpc.
+//
+// Response of a consult for a model.
+message ConsultModelResponse {
+	// Output only. Assigned by the server.
+	// the class assigned by a model for a sequence of leds.
+	int32 class = 1;
+}
