@@ -86,7 +86,7 @@ def train_model(model, input, target, input_test, target_test):
         # Optimizar los parámetros
         optimizer.step()
 
-    return model, error
+    return model
 
 
 def test_model(model, input, target):
