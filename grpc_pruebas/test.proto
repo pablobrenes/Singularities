@@ -3,6 +3,7 @@
 
 syntax = "proto3";
 
+// Service to manage a classifier model of binary leds combinations.
 service ModelService {
 
 	// Request to create of a new model.
@@ -40,7 +41,7 @@ message ConsultModelRequest {
 	string name = 1;
 
 	// Required. Just 7 values, one for each led.
-	repeated bool = 2;	
+	repeated bool leds = 2;	
 }
 
 // A ConsultModelResponse is received in response to ConsultModel rpc.
