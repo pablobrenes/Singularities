@@ -71,18 +71,11 @@ def train_model(model, input, target, input_test, target_test):
     epochs = 2001
 
     for epoch in range(epochs):
+        # Salida del modelo
         out = model(input)
 
+        # Error del modelo
         error = error_function(out, target)
-
-        if not epoch % 100:
-            print("Epoch:", epoch)
-            print("Error training", error.item())
-
-            salida_test = model(input_test)
-            error_test = error_function(salida_test, target_test)
-            print("Error testing", error_test.item())
-            print()
 
         # Reiniciar el cálculo del gradiente
         optimizer.zero_grad()
@@ -93,7 +86,7 @@ def train_model(model, input, target, input_test, target_test):
         # Optimizar los parámetros
         optimizer.step()
 
-    return model
+    return model, error
 
 
 def test_model(model, input, target):
@@ -107,14 +100,54 @@ def test_model(model, input, target):
     return torch.mean(matches)
 
 
+def save_model(model, path):
+    torch.save(model.state_dict(), path)
+
+
+def load_model(path):
+    model = create_model()
+    model.load_state_dict(torch.load(path))
+    return model
+
+
 def main():
     value, target = load_data("../led.csv")
-    value_train, target_train, value_test, target_test = get_proportion(value, target, .7)
-    model = create_model()
-    model = train_model(model, value_train, target_train, value_test, target_test)
 
-    avg_hits = test_model(model, value_test, target_test)
-    print("Porcentaje de datos correctamente clasificados:", avg_hits)
+    avgs = []
+    errors = []
+
+    for i in range(50):
+        value_train, target_train, value_test, target_test = get_proportion(value, target, .7)
+        model = create_model()
+
+        model, error = train_model(model, value_train, target_train, value_test, target_test)
+        avg_hits = test_model(model, value_test, target_test)
+
+        avgs.append(avg_hits.item())
+        errors.append(error.item())
+        print("Train:", i)
+
+    avgs = torch.tensor(avgs)
+    errors = torch.tensor(errors)
+
+    ma, sa = torch.mean(avgs), torch.std(avgs)
+    me, se = torch.mean(errors), torch.std(errors)
+
+    print("Avg", ma, sa)
+    print("Std", me, se)
+
+
+    # save_model(model, 'test.model')
+    #
+    # model_ = load_model('test.model')
+    #
+    # avg_hits = test_model(model_, value_test, target_test)
+    # print("Porcentaje de datos correctamente clasificados:", avg_hits)
+
+    """
+    Avg tensor(0.7517) tensor(0.0035)
+    Std tensor(0.1387) tensor(0.0011)
+    """
 
 
 if __name__ == '__main__':
