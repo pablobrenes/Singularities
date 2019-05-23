@@ -4,7 +4,7 @@
 syntax = "proto3";
 
 // Service to manage a classifier model of binary leds combinations.
-service ClassifierService {
+service Classifier {
 
 	// Request to create of a new model.
 	rpc CreateModel(CreateModelRequest) returns (ModelRepresentation) {}

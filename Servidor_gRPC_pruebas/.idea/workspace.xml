@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d02a84e-6fa6-4ff7-adef-36384e4e022f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Servidor_gRPC_pruebas.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Servidor_gRPC_pruebas.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../clasificador_pruebas/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../clasificador_pruebas/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../clasificador_pruebas/nn.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clasificador_pruebas/nn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../grpc_pruebas/test.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../grpc_pruebas/test.proto" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,26 +12,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/model/classifier.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/classifier_pb2.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/classifier_pb2_grpc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="34">
+              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#70#81#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/data_loader.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/classifier_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -57,6 +55,10 @@
       <list>
         <option value="$PROJECT_DIR$/model/data_loader.py" />
         <option value="$PROJECT_DIR$/model/classifier.py" />
+        <option value="$PROJECT_DIR$/model/__init__.py" />
+        <option value="$PROJECT_DIR$/server/__init__.py" />
+        <option value="$PROJECT_DIR$/server/classifier_pb2_grpc.py" />
+        <option value="$PROJECT_DIR$/server/classifier_server.py" />
       </list>
     </option>
   </component>
@@ -79,6 +81,16 @@
             <path>
               <item name="Servidor_gRPC_pruebas" type="b2602c69:ProjectViewProjectNode" />
               <item name="Servidor_gRPC_pruebas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Servidor_gRPC_pruebas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Servidor_gRPC_pruebas" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Servidor_gRPC_pruebas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Servidor_gRPC_pruebas" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -116,15 +128,16 @@
       <option name="presentableId" value="Default" />
       <updated>1558498797614</updated>
       <workItem from="1558498800230" duration="2114000" />
-      <workItem from="1558562279217" duration="3591000" />
+      <workItem from="1558562279217" duration="7890000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5705000" />
+    <option name="totallyTimeSpent" value="10004000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18262313" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -165,11 +178,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/classifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="850">
+          <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/a/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/classifier_pb2.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/classifier_pb2_grpc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding>
+            <element signature="e#70#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/classifier_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="10" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
         </state>
       </provider>
     </entry>
