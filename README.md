@@ -220,3 +220,7 @@ Servicio gRPC.
 Para el manejo de errores en el cliente, para Python, basta encerrar la llamada en un bloque _try-except_. Si el
 servidor actualiza el contexto a un error, automaticamente la llamada dentro del cliente lanzará una excepción que puede
 ser capturada con `except grpc.RpcError`, para posteriormente manejarlo.
+
+## Muestras de ejecución (imágenes)
+
+Se tomaron capturas de algunas ejecuciones, pueden ser consultadas en el [archivo 'pdf'](muestras.pdf) incluido.
