@@ -61,6 +61,12 @@ class ClassifierServicer(classifier_pb2_grpc.ClassifierServicer):
 
     def CreateModel(self, request, context):
         logging.info('Request for create a model')
+
+        # Validar datos del request
+        if self.__validate_create_model_request(request, context):
+            logging.info("Error")
+            return classifier_pb2.ModelRepresentation()
+
         # Obtener un nombre de archivo para el modelo
         filename = request.name.replace(" ", "_") + '_' + str(uuid.uuid1())
         file_location = os.path.join(MODELS_DIR, filename)
@@ -80,21 +86,74 @@ class ClassifierServicer(classifier_pb2_grpc.ClassifierServicer):
 
     def ConsultModel(self, request, context):
         logging.info('Request for consult a model')
+
         # Obtener la representación del modelo
         model_entity = get_model_entity(self.model_entyty_database, request.name)
 
-        # Si el modelo existe
+        # Validar datos del request
+        if self.__validate_consult_model_request(request, context, model_entity):
+            logging.info('Error')
+            return classifier_pb2.ConsultModelResponse()
+
+        classifier = load_model(model_entity.file_location)
+        output = classifier.consult_model(request.leds)
+        return classifier_pb2.ConsultModelResponse(output=output)
+
+    def __validate_consult_model_request(self, request, context, model_entity):
+        # Validar el formato de leds
+        leds = request.leds
+        if len(leds) != 7 or not all(isinstance(x, bool) for x in leds):
+            msg = "El valor de 'leds' debe ser una lista de 7 valores booleanos."
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return True
+
+        # Verificar si el modelo existe
         if model_entity:
-            # Si el modelo ya está entrenado
-            if model_entity.trained:
-                classifier = load_model(model_entity.file_location)
-                output = classifier.consult_model(request.leds)
-                return classifier_pb2.ConsultModelResponse(output=output)
-            else:
-                pass
+            # El modelo existe
+            if not model_entity.trained:
+                # El modelo aún no está entrenado
+                msg = "El modelo aun no ha sido entrenado."
+                context.set_details(msg)
+                context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+                return True
         else:
             # El modelo no existe
-            return classifier_pb2.ConsultModelResponse(output=10)
+            msg = f"No existe un modelo asociado a el nombre '{request.name}'."
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return True
+
+    def __validate_create_model_request(self, request, context):
+        # Validar el formato de proportion
+        if request.proportion <= 0 or request.proportion > 1:
+            msg = "La proporcion indicada debe ser un flotante de entre 0 y 1."
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return True
+
+        # Validar el url
+        try:
+            if requests.head(request.url).status_code != 200:
+                msg = "El url indicado no corresponde a una pagina web valida."
+                context.set_details(msg)
+                context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+                return True
+        except (requests.URLRequired, requests.exceptions.MissingSchema):
+            msg = "El url indicado no corresponde a una pagina web valida."
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return True
+
+        # Buscar si el modelo ya existe en el servidor
+        model_entity = get_model_entity(self.model_entyty_database, request.name)
+        if model_entity:
+            msg = "El nombre indicado ya esta siendo utilizado."
+            context.set_details(msg)
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return True
+
+        return False
 
 
 def download_file(url, filename):

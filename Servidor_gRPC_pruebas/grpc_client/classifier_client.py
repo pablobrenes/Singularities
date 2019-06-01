@@ -45,8 +45,6 @@ def process_menu_option(option, stub):
 
         try:
             proportion = float(proportion)
-            if not proportion > 0 and proportion < 1:
-                raise ValueError
 
             if url == "":
                 url = URL
@@ -56,6 +54,11 @@ def process_menu_option(option, stub):
 
         except ValueError:
             print('La entrada proporción debe ser un valor flotante de entre 0 y 1')
+
+        except grpc.RpcError as e:
+            print(f'{e.code().name}: {e.details()}')
+
+
 
     elif option == '2':
         name = input('Nombre del modelo >> ')
@@ -68,9 +71,13 @@ def process_menu_option(option, stub):
                 leds.append(led)
             except ValueError:
                 print('La entrada de un led debe ser un valor de 1 o 0, para Verdadero o Falso respectivamente')
-        if len(leds) == 7:
+
+        try:
             print()
             consult_model(stub, name, leds)
+        except grpc.RpcError as e:
+            print(f'{e.code().name}: {e.details()}')
+
 
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:
@@ -90,6 +97,7 @@ def run():
             print()
             print('Saliendo...')
             sys.exit(0)
+
 
 def run_client():
     logging.basicConfig()

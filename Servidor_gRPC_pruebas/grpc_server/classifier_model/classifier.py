@@ -45,7 +45,7 @@ class Classifier(object):
 
         _, estimated_class = torch.max(out, 1)
 
-        return estimated_class
+        return estimated_class.item()
 
     def save_model(self, path):
         torch.save(self.model.state_dict(), path)
