@@ -141,14 +141,16 @@ finalmente detiene el servidor. El servidor actualmente no contempla que se dete
 a que la cola sea totalmente procesada, el servidor se terminará por si mismo una vez esto suceda.
 
 #### Recursos del servidor
-#####Estructura de archivos
+
+**Estructura de archivos**: 
 El servidor requiere de una carpeta principal, _serverdata_, dentro de esta deben existir dos más,
 _temp_datasets_storage_ y _models_, donde se almacenan los datasets temporalmente cuando se descargan y los modelos
 entrenados, respectivamente. Además dentro de la carpeta principal debe existir un archivo de formato _json_ bajo el
 nombre de _model_entity_database.json_.
 
 El servidor se encarga de crear estas carpetas y archivos al momento de ejecutarlo si estas no existen.
-#####Base de datos
+
+**Base de datos**: 
 Esta es lo más simple posible, al momento de ejecución es una lista de Python, mientras que en disco, se
 representa como un archivo de formato _json_. Que se carga una única vez al momento de levantar el servidor. Esta se
 actualiza en disco cada vez que un modelo fue entrenado.
@@ -156,7 +158,8 @@ actualiza en disco cada vez que un modelo fue entrenado.
 Existen tres funciones asociadas a esta base de datos, una para obtener una entidad, agregar una entidad y actualizar
 una entidad para indicar que ya fue entrenada específicamente. Pueden verse en el archivo `classifier_server`, son las
 tres primeras funciones definidas: _get_model_entity_, _add_model_entity_, y _update_trained_value_.
-#####Trabajadores y cola de trabajo
+
+**Trabajadores y cola de trabajo**:
 Cuando el servidor inicia, lanza una cantidad definida de hilos con el propósito de entrenar modelos. Estos están
 asociados a una cola de trabajo, implementada con _Queue_ del paquete _queue_ de Python, que ofrece colas
 especializadas para ser utilizadas por múltiples hilos de ejecución.
