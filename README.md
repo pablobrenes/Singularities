@@ -27,7 +27,7 @@ $ python3.7 grpc_client
 ## Clasificador
 
 El clasificador fue implementado con la librería [Pytorch](https://pytorch.org/). El código puede ser consultado en la
-carpeta `classifier_model` donde existen dos archivos, `classifier.py` que contiene la Clase que representa el
+carpeta [`classifier_model`](./grpc_server/classifier_model) donde existen dos archivos, `classifier.py` que contiene la Clase que representa el
 clasificador y `data_loader.py` que contiene una Clase utilizada para cargar, leer y transformar los datos para el
 entrenamiento.
 
@@ -70,7 +70,8 @@ for epoch in range(epochs):
     out = model(values)
     # Obtener el error del modelo
     error = error_function(out, targets)
-    # Reiniciar el cálculo del gradiente para que no tome los cálculos realizados en interaciones previas
+    # Reiniciar el cálculo del gradiente para que no tome
+    # los cálculos realizados en interaciones previas
     optimizer.zero_grad()
     # Propagación del error hacia atrás para obtener el gradiente
     error.backward()
@@ -101,7 +102,7 @@ mismas muestras con ruido para probarlo es esperable este resultado.
 
 ## Servicio gRPC
 
-El archivo en formato .proto, puede verse completo en el archivo `classifier.proto`. En resumen, se crea un servicio con
+El archivo en formato .proto, puede verse completo en el archivo [`classifier.proto`](classifier.proto). En resumen, se crea un servicio con
 dos llamadas, una para crear un modelo y otra para consultar el modelo. La primer llamada se comunica recibiendo un
 _message_ de tipo _CreateModelRequest_ y retornando un _message_ de tipo _ModelRepresentation_. Similarmente la segunda
 llamada recibe un _message_ de tipo _ConsultModelRequest_ y retorna un _message_ de tipo _ConsultModelResponse_.
@@ -113,9 +114,10 @@ Donde cada mensaje tiene los siguientes campos:
 - ConsultModelResponse: una salida (int32).
 
 Una vez definido este archivo, se procede a utilizar el compilador de proto para Python. Obteniendo dos archivos:
-`classifier_pb2.py` y `classifier_pb2_grpc.py`, el primero contiene las descripciones de los mensajes y el servicio
-necesario para implementar el servicio gRPC en Python, mientras que el segundo contiene dos interfaces para implementar
-dos clases, una para implementar el servidor y la segunda para invocar los métodos remotos.
+[`classifier_pb2.py`](grpc_server/grpc_modules/classifier_pb2.py) y
+[`classifier_pb2_grpc.py`](grpc_server/grpc_modules/classifier_pb2_grpc.py), el primero contiene las descripciones de
+los mensajes y el servicio necesario para implementar el servicio gRPC en Python, mientras que el segundo contiene dos
+interfaces para implementar dos clases, una para implementar el servidor y la segunda para invocar los métodos remotos.
 
 ### Servidor
 
@@ -123,8 +125,8 @@ El servidor se implementa en una clase según la interfaz provista por el compil
 definidos según las llamadas en el servicio gRPC.
 
 #### Llamada para crear un modelo
-El código puede ser encontrado en el archivo `classifier_server`, en el método _CreateModel_ de la clase
-_ClassifierServicer_
+El código puede ser encontrado en el archivo [`classifier_server`](grpc_server/classifier_server.py), en el método
+_CreateModel_ de la clase _ClassifierServicer_
 
 El servidor, cuando recibe una petición de crear un modelo, se encarga de crear un nombre de archivo basado en el nombre
 del modelo donde se guardará el modelo en disco para posteriores consultas, seguidamente crea una representación de la
@@ -139,8 +141,8 @@ gRPC para indicar  que hubo un error, estas validaciones pueden ser consultadas 
  método _validate_create_model_request_ de la clase _ClassifierServicer_.
 
 #### Llamada para consultar un modelo
-El código puede ser encontrado en el archivo `classifier_server`, en el método _ConsultModel_ de la clase
-_ClassifierServicer_
+El código puede ser encontrado en el archivo [`classifier_server`](grpc_server/classifier_server.py), en el método
+_ConsultModel_ de la clase _ClassifierServicer_
 
 Al momento de recibir esta llamada el servidor primero busca la entidad asociada al modelo en la base de datos indicado
 según el nombre, obtiene la localización del archivo que representa los parámetros del modelo, crea un nuevo
@@ -183,7 +185,8 @@ representa como un archivo de formato _json_. Que se carga una única vez al mom
 actualiza en disco cada vez que un modelo fue entrenado.
 
 Existen tres funciones asociadas a esta base de datos, una para obtener una entidad, agregar una entidad y actualizar
-una entidad para indicar que ya fue entrenada específicamente. Pueden verse en el archivo `classifier_server`, son las
+una entidad para indicar que ya fue entrenada específicamente. Pueden verse en el archivo
+[`classifier_server`](grpc_server/classifier_server.py), son las
 tres primeras funciones definidas: _get_model_entity_, _add_model_entity_, y _update_trained_value_.
 
 **Trabajadores y cola de trabajo**:
@@ -192,7 +195,7 @@ asociados a una cola de trabajo, implementada con _Queue_ del paquete _queue_ de
 especializadas para ser utilizadas por múltiples hilos de ejecución.
 
 La cola de trabajo recibe entidades asociadas al modelo. Definidas por la clase _ModelEntity_ (puede verse en 
-`classifier_resources.py`), Estas contienen el nombre del modelo, la proporción del dataset a usar, el url origen,
+[`classifier_resources.py`](grpc_server/classifier_resources.py)), Estas contienen el nombre del modelo, la proporción del dataset a usar, el url origen,
 la localización del archivo en memoria donde se almacenan los parámetros del modelo, fecha de creación y finalmente
 un valor booleano que indica si el modelo en particular ya fue entrenado o no, para que el servidor sepa si ya puede o 
 no consultar un modelo de ser necesario.
@@ -201,7 +204,8 @@ El trabajo que realiza un trabajador es el siguiente: obtener la entidad de la c
 asociado al dataset, crear un clasificador no entrenado, obtener la proporción necesaria del dataset y comenzar el
 entrenamiento del modelo, una vez entrenado el modelo elimina el archivo del dataset, finalmente guarda el modelo en
 disco, actualiza el valor de entrenado en la base de datos y le indica a la cola que ha completado el trabajo. El 
-código del trabajador puede ser consultado en el archivo `classifier_server`, en la función _train_model_worker_.
+código del trabajador puede ser consultado en el archivo [`classifier_server`](grpc_server/classifier_server.py),
+en la función _train_model_worker_.
 
 ### Cliente
 El cliente es un pequeño programa de consola, con un menú simple para utilizar las dos llamadas especificadas en el 
