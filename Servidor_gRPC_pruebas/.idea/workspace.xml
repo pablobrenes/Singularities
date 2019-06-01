@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7d02a84e-6fa6-4ff7-adef-36384e4e022f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_client/classifier_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_client/classifier_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_server/classifier_model/classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_server/classifier_model/classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grpc_server/classifier_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/grpc_server/classifier_server.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,23 +12,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="651">
-                <caret line="161" column="35" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
+              <first_editor relative-caret-position="668">
+                <caret line="135" column="39" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
               </first_editor>
               <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grpc_server/classifier_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3026">
-              <caret line="178" column="35" lean-forward="true" selection-start-line="178" selection-start-column="35" selection-end-line="178" selection-end-column="35" />
+            <state relative-caret-position="612">
+              <caret line="126" column="39" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="39" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -42,7 +39,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grpc_client/classifier_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
+            <state relative-caret-position="-359">
               <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
@@ -103,10 +100,10 @@
         <option value="$PROJECT_DIR$/grpc_server/__main__.py" />
         <option value="$PROJECT_DIR$/grpc_client/grpc_modules/classifier_pb2_grpc.py" />
         <option value="$PROJECT_DIR$/grpc_client/__main__.py" />
-        <option value="$PROJECT_DIR$/../README.md" />
         <option value="$PROJECT_DIR$/grpc_server/classifier_model/classifier.py" />
         <option value="$PROJECT_DIR$/grpc_client/classifier_client.py" />
         <option value="$PROJECT_DIR$/grpc_server/classifier_server.py" />
+        <option value="$PROJECT_DIR$/../README.md" />
       </list>
     </option>
   </component>
@@ -232,18 +229,18 @@
       <workItem from="1558562279217" duration="9909000" />
       <workItem from="1559248665321" duration="10406000" />
       <workItem from="1559280163689" duration="12165000" />
-      <workItem from="1559324005985" duration="24150000" />
+      <workItem from="1559324005985" duration="25051000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58744000" />
+    <option name="totallyTimeSpent" value="59645000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2434975" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.026563365" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -423,16 +420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="651">
-            <caret line="161" column="35" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grpc_client/grpc_modules/classifier_pb2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -452,7 +439,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grpc_client/classifier_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2">
+        <state relative-caret-position="-359">
           <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
@@ -462,11 +449,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grpc_server/classifier_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3026">
-          <caret line="178" column="35" lean-forward="true" selection-start-line="178" selection-start-column="35" selection-end-line="178" selection-end-column="35" />
+        <state relative-caret-position="612">
+          <caret line="126" column="39" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="39" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="668">
+            <caret line="135" column="39" selection-start-line="135" selection-start-column="39" selection-end-line="135" selection-end-column="39" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

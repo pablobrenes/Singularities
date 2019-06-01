@@ -107,7 +107,7 @@ El servidor se implementa en una clase según la interfaz provista por el compil
 definidos según las llamadas en el servicio gRPC.
 
 #### Llamada para crear un modelo
-El código puede ser encontrado en el archivo `classifier_server`, en el método CreateModel de la clase
+El código puede ser encontrado en el archivo `classifier_server`, en el método _CreateModel_ de la clase
 _ClassifierServicer_
 
 El servidor, cuando recibe una petición de crear un modelo, se encarga de crear un nombre de archivo basado en el nombre
@@ -116,14 +116,25 @@ entidad asociada al modelo para almacenarla en la base de datos, luego, agrega a
 de la entidad para que algún trabjador la tome y comience el entrenamiento del modelo. Finalmente envía al cliente una
 representación del modelo y termina la llamada.
 
+El proceso recién descrito implica que no hubo errores. En caso de que el servidor detecte un error, como qué los campos
+del mensaje no tienen los valores correctos o bien el nombre del modelo ya está siendo utilizado el servidor retorna
+un _mesagge_ de tipo _ModelRepresentation_ vació, pero actualiza la variable de contexto de la llamada del servicio
+gRPC para indicar  que hubo un error, estas validaciones pueden ser consultadas en el archivo `classifier_server`, en el
+ método _validate_create_model_request_ de la clase _ClassifierServicer_.
+
 #### Llamada para consultar un modelo
-El código puede ser encontrado en el archivo `classifier_server`, en el método ConsultModel de la clase
+El código puede ser encontrado en el archivo `classifier_server`, en el método _ConsultModel_ de la clase
 _ClassifierServicer_
 
 Al momento de recibir esta llamada el servidor primero busca la entidad asociada al modelo en la base de datos indicado
 según el nombre, obtiene la localización del archivo que representa los parámetros del modelo, crea un nuevo
 clasificador y le carga los parámetros según la localización del archivo, le realiza una consulta al modelo y regresa al
 cliente la salida obtenida del modelo.
+
+Similarmente en la llamada anterior, el proceso anterior es el que no implica fallos, si los valores de leds son
+incorrectos, o bien se quiere consultar un modelo que no exista, o que no esté entrenado aún, se retorna un
+_mesagge_ de tipo _ConsultModelResponse_ vació y se actualiza el contexto. Estas validaciones pueden ser consultadas en
+el archivo `classifier_server`, en el método _validate_consult_model_request_ de la clase _ClassifierServicer_.
 
 #### Servicio
 Cuando el servidor inicia se encarga de verificar que todos los recursos del servidor estén en orden, y si aplica,
@@ -185,3 +196,7 @@ esta clase utilizando como parámetro el canal creado con la librería grpc con 
 Una vez instanciada esta clase todas las llamadas especificadas en el servicio gRPC pueden ser invocadas a través de
 esta instancia, utilizando los objetos definidos también por el compilador de proto, como se mencionó en la sección 
 Servicio gRPC.
+
+Para el manejo de errores en el cliente, para Python, basta encerrar la llamada en un bloque _try-except_. Si el
+servidor actualiza el contexto a un error, automaticamente la llamada dentro del cliente lanzará una excepción que puede
+ser capturada con `except grpc.RpcError`, para posteriormente manejarlo.
