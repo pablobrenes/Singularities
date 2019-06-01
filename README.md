@@ -8,6 +8,22 @@ El proyecto fue creado con las siguientes librerías:
 - requests 2.21.0, para descargar los datasets desde el url provisto.
 - pytorch 1.0.1, para la creación, entrenamiendo y consulta del modelo.
 
+## Ejecución
+El proyecto fue desarrollado y probado en un ambiente Linux, con Python versión 3.7.3.
+
+Existen respectivamente dos carpetas para el servidor y el cliente; [`grpc_server`](./grpc_server) y
+[`grpc_client`](./grpc_client). Para ejecutar el servidor o el cliente basta ejecutar Python3.7 y utilizar como
+parámetro el nombre de la carpeta respectiva.
+
+Correr el servidor
+```
+$ python3.7 grpc_server
+```
+Correr el cliente
+```
+$ python3.7 grpc_client
+```
+
 ## Clasificador
 
 El clasificador fue implementado con la librería [Pytorch](https://pytorch.org/). El código puede ser consultado en la
